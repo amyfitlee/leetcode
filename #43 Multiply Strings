@@ -1,0 +1,19 @@
+class Solution {
+public:
+	string multiply(string num1, string num2) {
+		if (num1.empty() || num2.empty()) return "";
+		string s(num1.size() + num2.size(), '0');
+		int extra = 0;
+		for (int i = num1.size() - 1; i >= 0; --i) {
+			for (int j = num2.size() - 1; j >= 0; --j) {
+				int cur = s[i + j + 1] - '0' + (num1[i] - '0') * (num2[j] - '0') + extra;
+				extra = cur / 10;
+				s[i + j + 1] = cur % 10 + '0';
+			}
+            s[i] += extra;
+		}
+		int idx = s.find_first_not_of('0');
+        if (idx == string::npos) return "0";
+		return s.substr(idx);
+	}
+};
