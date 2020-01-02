@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int calculate(string s) {
+        s = s + "+";
+        int ans = 0, num = 0, cur = 0, sign = 1;
+        char last = '+';
+        for(int i = 0; i < s.size(); ++i){
+            if(s[i] == ' ') continue;
+            if(isdigit(s[i])) 
+                num = num * 10 + (s[i] - '0');
+            else{
+                if(last == '+' || last == '-'){
+                    cur = num;
+                }
+                else if(last == '/'){
+                    cur /= num;
+                }
+                else if(last == '*'){
+                    cur *= num;
+                }
+                num = 0;
+                last = s[i];
+            }
+            if(s[i] == '+' || s[i] == '-'){
+                ans += cur * sign;
+                sign = s[i] ==  '+' ? 1 : -1;
+                cur = 0;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+class Solution {
+public:
+	int calculate(string s) {
+		int ans = 0;
+		stack<int> nums;
+		char sign = '+';
+		int num = 0;
+		for (int i = 0; i < s.size(); ++i) {
+			if (isdigit(s[i])) {
+				num = num * 10 + (s[i] - '0');
+			}
+			if (!isdigit(s[i]) && s[i] != ' ' || i == s.size() - 1) {
+				if (sign == '+') nums.push(num);
+				else if (sign == '-') nums.push(-num);
+				else if (sign == '*' && !nums.empty()) nums.top() *= num;
+				else if (sign == '/' && !nums.empty()) nums.top() /= num;
+				sign = s[i];
+				num = 0;
+			}
+		}
+		while (!nums.empty()) {
+			ans += nums.top();
+			nums.pop();
+		}
+		return ans;
+	}
+};
