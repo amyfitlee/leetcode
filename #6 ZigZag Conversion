@@ -1,0 +1,18 @@
+class Solution {
+public:
+	string convert(string s, int numRows) {
+        
+		vector<string>vec(numRows, "");
+		int n = s.size();
+        if(n <= numRows || numRows == 1) return s;
+		int m = 0, dir = -1;
+		string ans;
+		for (int i = 0; i < n; ++i) {
+			if (m == numRows - 1 || m == 0) dir = -dir;
+            vec[m] = s[i];
+            m += dir;
+		}
+		
+		return accumulate(vec.begin(), vec.end(), ans);
+	}
+};
