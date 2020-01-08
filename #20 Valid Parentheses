@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> ss;
+        for(auto c: s){
+            if(ss.empty()) ss.push(c);
+            else{
+                if(c == ')' && ss.top() == '(') ss.pop();
+                else if(c == ']' && ss.top() == '[') ss.pop();
+                else if(c == '}' && ss.top() == '{') ss.pop();
+                else ss.push(c);
+            }
+        }
+        return ss.empty();
+    }
+};
