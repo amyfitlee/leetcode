@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        istringstream in(path);
+        vector<string> vec;
+        string ans;
+        string tmp;
+        while(getline(in, tmp,'/')){
+            if(tmp == "" || tmp  == ".") continue;
+            else if(tmp == ".." && !vec.empty()) vec.pop_back();
+            else if(tmp == "..") continue;
+            else vec.push_back(tmp);
+        }
+        for(auto s : vec){
+            ans += "/" + s;
+        }
+        return ans.empty() ? "/" : ans;
+    }
+};
