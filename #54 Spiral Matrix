@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<vector<int>> Dir{{0,1},{1,0},{0,-1},{-1,0}};
+        int m = matrix.size(); 
+        if(m == 0) return {};
+        int n = matrix[0].size();
+        vector<int> ans;
+        int idx = 0;
+        int row = 0, col = -1;
+        vector<int>count{n, m  - 1};
+        while(count[idx % 2]){
+            for(int i = 0; i < count[idx % 2]; ++i){
+                row += Dir[idx][0];
+                col += Dir[idx][1];
+                ans.push_back(matrix[row][col]);
+            }
+            count[idx % 2]--;
+            idx = (++idx) % 4;
+        }
+        return ans;
+    }    
+};
