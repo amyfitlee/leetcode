@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k = k % n;
+        reverse(nums.begin(), nums.begin() + n - k);
+        reverse(nums.begin() + n - k, nums.end());
+        reverse(nums.begin(), nums.end());
+    }
+};
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k = k % n;
+        vector<int> v1(nums.begin() + n - k, nums.end());
+        vector<int> v2(nums.begin(), nums.begin() + n - k);
+        v1.insert(v1.end(), v2.begin(), v2.end());
+        nums.swap(v1);
+    }
+};
