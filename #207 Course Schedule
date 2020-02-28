@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        graph g(numCourses);
+        for(auto p : prerequisites){
+            g[p[1]].push_back(p[0]);
+        }
+        vector<int> v(numCourses,0);
+        for(int i = 0; i < numCourses; ++i){
+            if(!dfs(i, g, v))
+                return false;
+        }
+        return true;
+    }
+private:
+    typedef vector<vector<int>> graph;
+    
+    bool dfs(int i, const graph & g, vector<int>& v){
+        if(v[i] == 2) return true;
+        if(v[i] == 1) return false;
+        
+        v[i] = 1;
+        for(auto j : g[i]){
+            if(!dfs(j, g, v)) return false;
+        }
+        v[i] = 2;
+        return true;
+    }
+};
