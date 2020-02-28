@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> g(numCourses);
+        for(auto p: prerequisites){
+            g[p[1]].push_back(p[0]);
+        }
+        vector<int> v(numCourses, 0);
+        vector<int> ans;
+        for(int i = 0; i < numCourses;++i){
+            if(!dfs(i, ans, v, g))
+                return {};
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+    bool dfs(int i, vector<int> &ans, vector<int>& v, const vector<vector<int>>& g){
+        if(v[i] == 1) return false;
+        if(v[i] == 2) return true;
+        
+        v[i] = 1;
+        for(auto j: g[i]){
+            if(!dfs(j, ans, v, g))
+                return false;
+        }
+        v[i] = 2;
+        ans.push_back(i);
+        return true;
+    }
+};
