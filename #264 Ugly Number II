@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> num(n, 1);
+        int i = 0, j = 0, k = 0, idx = 1;
+        int next2 = 1, next3 = 1, next5 = 1;
+        while(idx < n){
+            next2 = num[i] * 2;
+            next3 = num[j] * 3;
+            next5 = num[k] * 5;
+            num[idx] = min(min(next2, next3), next5);
+            if(next2 == num[idx]) ++i;
+            if(next3 == num[idx]) ++j;
+            if(next5 == num[idx]) ++k;
+            ++idx;
+        }
+        return num[n - 1];
+    }
+};
