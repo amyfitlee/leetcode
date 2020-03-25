@@ -1,18 +1,22 @@
 class Solution {
 public:
-	string convert(string s, int numRows) {
-        
-		vector<string>vec(numRows, "");
-		int n = s.size();
-        if(n <= numRows || numRows == 1) return s;
-		int m = 0, dir = -1;
-		string ans;
-		for (int i = 0; i < n; ++i) {
-			if (m == numRows - 1 || m == 0) dir = -dir;
-            vec[m] = s[i];
-            m += dir;
-		}
-		
-		return accumulate(vec.begin(), vec.end(), ans);
-	}
+    string convert(string s, int numRows) {
+        if(s.empty()) return "";
+        if(numRows <= 1) return s;
+        vector<string> vec(numRows);
+        string ans;
+        int j = 0;
+        int step = -1;
+        for(int i = 0; i < s.size(); ++i){
+            if(j == 0 || j == numRows - 1){
+                step = -step;
+            }
+            vec[j] += s[i];
+            j += step;
+        }
+        for(int i = 0; i < numRows; ++i){
+            ans += vec[i];
+        }
+        return ans;
+    }
 };
