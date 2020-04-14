@@ -1,0 +1,43 @@
+
+method 1: recursion
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        helper(ans, root, 0);
+        return ans;
+    }
+    void helper(vector<vector<int>>& ans, TreeNode* root, int depth){
+        if(!root) return;
+        if(ans.size() == depth){
+            ans.push_back({});
+        }
+        ans[depth].push_back(root->val);
+        helper(ans, root->left, depth + 1);
+        helper(ans, root->right, depth + 1);
+    }
+};
+
+method 2:iteration
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        queue<TreeNode*> q;
+        vector<vector<int>> ans;
+        q.push(root);
+        while(!q.empty()){
+            vector<int> cur;
+            int n = q.size();
+            for(int i = 0; i < n; ++i){
+                TreeNode* tmp = q.front(); 
+                q.pop();
+                cur.push_back(tmp->val);
+                if(tmp->left)q.push(tmp->left);
+                if(tmp->right)q.push(tmp->right);
+            }
+            ans.push_back(cur);
+        }
+        return ans;
+    }
+};
