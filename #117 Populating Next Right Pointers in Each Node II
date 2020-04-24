@@ -1,0 +1,35 @@
+class Solution {
+public:
+    Node* connect(Node* root) {
+        Node* head;
+        Node* pre;
+        Node* cur = root;
+        while(cur){
+            while(cur){
+                if(cur->left){
+                    if(pre){
+                        pre->next = cur->left;
+                    }
+                    else{
+                        head = cur->left;
+                    }
+                    pre = cur->left;
+                }
+                if(cur->right){
+                    if(pre){
+                        pre->next = cur->right;
+                    }
+                    else{
+                        head = cur->right;
+                    }
+                    pre = cur->right;
+                }
+                cur = cur->next;
+            }
+            cur = head;
+            head = nullptr;
+            pre = nullptr;
+        }
+        return root;
+    }
+};
