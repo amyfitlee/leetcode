@@ -27,3 +27,21 @@ public:
         
     }
 };
+
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(!head ||!head->next) return;
+        ListNode* cur = head;
+        while(cur->next && cur->next->next){
+            cur = cur->next;
+        }
+        ListNode* next = cur->next;
+        cur->next = nullptr;
+        next->next = head->next;
+        head->next = next;
+        reorderList(next->next);
+        
+    }
+};
